@@ -14,33 +14,8 @@ import matplotlib.pyplot as plt
 import nibabel as nib
 import torch.nn.functional as F
 from monai.metrics import compute_hausdorff_distance
-
 os.environ["KMP_DUPLICATE_LIB_OK"] = 'True'
-# from model_segmamba.segmamba_CNN import SegMamba
-# from model_segmamba.experiment.raw_mamba import SegMamba
-# from model_segmamba.experiment.CNN_Attention_mamba import SegMamba
-# from model_segmamba.experiment.Attention_mamba import SegMamba
-# from model_segmamba.experiment.CNN_Attention_Tmamba import SegMamba
-# from model_segmamba.experiment.CNN_Attention_Tmamba2 import SegMamba
-# from model_segmamba.experiment.just_local_scan import SegMamba
-# from model_segmamba.experiment.just_local_scan import SegMamba
-# from model_segmamba.experiment.just_local_scan import SegMamba
-
-# from model_segmamba.experiment.Apply_UXNet_encoder import SegMamba
-# from model_segmamba.experiment.Apply_SwinTransformer_encoder import SegMamba
-
-# from model_segmamba.Final_experiment.just_vertical_scan import SegMamba
-# from model_segmamba.Final_experiment.just_horizontal_scan import SegMamba
-# from model_segmamba.Final_experiment.local_vertical_scan import SegMamba
-# from model_segmamba.Final_experiment.local_horizontal_scan import SegMamba
-# from model_segmamba.Final_experiment.vertical_horizontal_scan import SegMamba
-# from model_segmamba.Final_experiment.local_vertical_horizontal_scan import SegMamba
 from model_segmamba.Final_experiment.local_vertical_scan_attention import SegMamba
-# from model_segmamba.Final_experiment.local_scan import SegMamba
-# from model_segmamba.Final_experiment.without_CNN_scan import SegMamba
-# from model_segmamba.Final_experiment.without_GLSSM_scan import SegMamba
-# from model_segmamba.Final_experiment.without_BiAtt_scan import SegMamba
-# from model_segmamba.Final_experiment.without_GCSAtt_scan import SegMamba
 
 def get_dice_score(prev_masks, gt3D):
     def compute_dice(mask_pred, mask_gt):
@@ -83,14 +58,10 @@ class DiceLoss(nn.Module):
 
 device = torch.device('cuda:1' if torch.cuda.is_available() else 'cpu')
 
-# image_path = r"/opt/data/private/workspace/hzh/all_data/nose_cancel_add_test/image/"
-# label_path = r"/opt/data/private/workspace/hzh/all_data/nose_cancel_add_test/label/"
+
 image_path = r"/opt/data/private/workspace/hzh/all_data/nose_cancel_all_test_new/image/"
 label_path = r"/opt/data/private/workspace/hzh/all_data/nose_cancel_all_test_new/label/"
-# image_path = r"/opt/data/private/workspace/hzh/all_data/hospital2_test_new/image"
-# label_path = r"/opt/data/private/workspace/hzh/all_data/hospital2_test_new/label"
-# image_path = r"/opt/data/private/workspace/hzh/all_data/hospital1_test_new/image"
-# label_path = r"/opt/data/private/workspace/hzh/all_data/hospital1_test_new/label"
+
 
 save_path = "./best2.pth"
 resume = True
@@ -102,7 +73,7 @@ net = SegMamba(out_chans=1,mode=mode_type[0]).to(device)
 if resume :
     # state_dict = torch.load("./best_ori_0.7600.pth")
     # net.load_state_dict(state_dict)
-    state_dict = torch.load("./test121_0.8047.pth", map_location=device)
+    state_dict = torch.load("./model.pth", map_location=device)
     filter_model_state = {k: v for k, v in state_dict['model_state_dict'].items()
                    if 'total_ops' not in k and 'total_params' not in k}
     net_state_dict = net.state_dict()
@@ -167,21 +138,8 @@ with torch.no_grad():
     dice_all = 0
     for index, (img, mask, info) in enumerate(tqdm(train_loader, total=len(train_loader))):
         img, mask = img.to(device), mask.to(device)
-        # print(img.shape)
-        # pred,mamba,cnn,enc,g_enc = net(img)
         pred = net(img)
-        ##########
-        # count = 0
-        # if count==0:
-        #     for x,y,e,ge in zip(mamba,cnn,enc,g_enc):
-        #         count += 1
-                # if count==1:
-                #     save_nii2(img, f"./middle_out/ori_image.nii", info)
-                # save_nii2(x, f"./middle_out/mmaba{count}.nii", info)
-                # save_nii2(y, f"./middle_out/cnn{count}.nii", info)
-                # save_nii2(e, f"./middle_out/enc{count}.nii", info)
-                # save_nii2(ge, f"./middle_out/g_enc{count}.nii", info)
-        ##########
+
         dice = get_dice_score(pred, mask)
         dice_all += dice
 
@@ -248,12 +206,12 @@ print('precision:',np.mean(np.array(precision_list)))
 print('recall:',np.mean(np.array(recall_list)))
 print('dice:',np.mean(np.array(dice_list)))
 print('HD95:',np.mean(np.array(HD95_list)))
-print('max_dice:',maxn)
-print('max_path:',max_path)
-print('min_dice:',minn)
-print('min_path:',min_path)
-print(max_lis)
-print(min_lis)
+# print('max_dice:',maxn)
+# print('max_path:',max_path)
+# print('min_dice:',minn)
+# print('min_path:',min_path)
+# print(max_lis)
+# print(min_lis)
 min_tensor = min_tensor.detach().cpu().numpy().astype(np.float32)
 max_tensor = max_tensor.detach().cpu().numpy().astype(np.float32)
 max_image = max_image.detach().cpu().numpy().astype(np.float32)
