@@ -1,0 +1,13 @@
+# ninja log v5
+3	4384	1728971922382195728	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d_update.o	9042be29f28affe1
+3	9541	1728971927531727596	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d_fwd.o	7d7e30421457be4f
+2	24835	1728971942798304501	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d_bwd.o	742abe2e17fd6ecf
+2	29701	1728971947683809062	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d.o	5a960ae82aa27823
+103	4534	1747052511295809986	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d_update.o	1338cbd539936f51
+103	9489	1747052516240325639	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d_fwd.o	1a1a850ce7e356a6
+103	23719	1747052530437805677	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d_bwd.o	fa772686fc4bd557
+102	28797	1747052535526335928	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d.o	b835d1076b21b81c
+157	19206	1761560585606495827	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d.o	6ac0b5122cc9f76a
+133	19468	1761714257164865854	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d.o	6ac0b5122cc9f76a
+156	21491	1761800390181455337	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d.o	6ac0b5122cc9f76a
+165	19377	1775542606851293966	/opt/data/private/workspace/hzh/SegMamba/causal-conv1d/build/temp.linux-x86_64-cpython-38/csrc/causal_conv1d.o	6ac0b5122cc9f76a
